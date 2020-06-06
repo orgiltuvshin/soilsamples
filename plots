@@ -1,0 +1,147 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
+
+path=r'/Users/orgiltuvshintugs/Downloads/NEON2018_SoilTexture_All.xlsx' 
+df=pd.read_excel(path)
+
+plt.rcParams['font.size'] = 5.0
+
+wgu = df.loc[df['Sampling Area'] == 'WGU']
+wgu.index=[x for x in range(1,len(wgu.values)+1)]
+
+sg = df.loc[df['Sampling Area'] == 'SG']
+sg.index=[x for x in range(1,len(sg.values)+1)]
+
+rmbl=df.loc[df['Sampling Area']=='RMBL - RM']
+rmbl.index=[x for x in range(1,len(rmbl.values)+1)]
+
+ph = df.loc[df['Sampling Area'] == 'PH']
+ph.index=[x for x in range(1,len(ph.values)+1)]
+
+brad=df.loc[df['Sampling Area']=='Bradley']
+brad.index=[x for x in range(1,len(brad.values)+1)]
+
+mtc = df.loc[df['Sampling Area'] == 'Mt. Cinn']
+mtc.index=[x for x in range(1,len(mtc.values)+1)]
+
+rock = df.loc[df['Sampling Area'] == 'Rock']
+rock.index=[x for x in range(1,len(rock.values)+1)]
+
+wgm = df.loc[df['Sampling Area'] == 'WGM']
+wgm.index=[x for x in range(1,len(wgm.values)+1)]
+
+t4 = df.loc[df['Sampling Area'] == 'T403']
+t4.index=[x for x in range(1,len(t4.values)+1)]
+
+uc = df.loc[df['Sampling Area'] == 'UC']
+uc.index=[x for x in range(1,len(uc.values)+1)]
+
+ls = df.loc[df['Sampling Area'] == 'LS']
+ls.index=[x for x in range(1,len(ls.values)+1)]
+
+pg = df.loc[df['Sampling Area'] == 'PG']
+pg.index=[x for x in range(1,len(pg.values)+1)]
+
+avg_sand_ls=ls.SAND.mean()
+avg_silt_ls=ls.SILT.mean()
+avg_clay_ls=ls.CLAY.mean()
+
+avg_sand_ph=ph.SAND.mean()
+avg_silt_ph=ph.SILT.mean()
+avg_clay_ph=ph.CLAY.mean()
+
+avg_sand_pg=pg.SAND.mean()
+avg_silt_pg=pg.SILT.mean()
+avg_clay_pg=pg.CLAY.mean()
+
+avg_sand_rmbl=rmbl.SAND.mean()
+avg_silt_rmbl=rmbl.SILT.mean()
+avg_clay_rmbl=rmbl.CLAY.mean()
+
+avg_sand_brad=brad.SAND.mean()
+avg_silt_brad=brad.SILT.mean()
+avg_clay_brad=brad.CLAY.mean()
+
+avg_sand_t4=t4.SAND.mean()
+avg_silt_t4=t4.SILT.mean()
+avg_clay_t4=t4.CLAY.mean()
+
+avg_sand_wgm=wgm.SAND.mean()
+avg_silt_wgm=wgm.SILT.mean()
+avg_clay_wgm=wgm.CLAY.mean()
+
+avg_sand_uc=uc.SAND.mean()
+avg_silt_uc=uc.SILT.mean()
+avg_clay_uc=uc.CLAY.mean()
+
+avg_sand_sg=sg.SAND.mean()
+avg_silt_sg=sg.SILT.mean()
+avg_clay_sg=sg.CLAY.mean()
+
+avg_sand_wgu=wgu.SAND.mean()
+avg_silt_wgu=wgu.SILT.mean()
+avg_clay_wgu=wgu.CLAY.mean()
+
+avg_sand_mtc=mtc.SAND.mean()
+avg_silt_mtc=mtc.SILT.mean()
+avg_clay_mtc=mtc.CLAY.mean()
+
+avg_sand_rock=rock.SAND.mean()
+avg_silt_rock=rock.SILT.mean()
+avg_clay_rock=rock.CLAY.mean()
+
+labels=['Sand','Silt','Clay']
+colors=['tan','gray','brown']
+explode=[0,0,.1]
+
+fig = plt.figure(figsize=(6,4), dpi=3000)
+
+ax1 = plt.subplot2grid((3,4),(0,0))
+plt.pie([avg_sand_ls,avg_silt_ls,avg_clay_ls],labels=labels,colors=colors,autopct='%.2f',explode=explode,textprops={'fontsize': 6})
+plt.title('Slate-Lower: 2735m',fontweight='bold', size= 6)
+
+ax1 = plt.subplot2grid((3,4), (0, 1))
+plt.pie([avg_sand_ph,avg_silt_ph,avg_clay_ph],labels=labels,colors=colors,autopct='%.2f',textprops={'fontsize': 6})
+plt.title('Pumphouse: 2778m',fontweight='bold', size= 6)
+
+ax1 = plt.subplot2grid((3,4), (0, 2))
+plt.pie([avg_sand_pg,avg_silt_pg,avg_clay_pg],labels=labels,colors=colors,autopct='%.2f',textprops={'fontsize': 6})
+plt.title('Poverty Gulch: 2892',fontweight='bold',size= 6)
+
+ax1 = plt.subplot2grid((3,4), (0, 3))
+plt.pie([avg_sand_rmbl,avg_silt_rmbl,avg_clay_rmbl],labels=labels,colors=colors,autopct='%.2f',textprops={'fontsize': 6})
+plt.title('RMBL - RM: 2907m',fontweight='bold',size= 6)
+
+ax1 = plt.subplot2grid((3,4), (1, 0))
+plt.pie([avg_sand_brad,avg_silt_brad,avg_clay_brad],labels=labels,colors=colors,autopct='%.2f',textprops={'fontsize': 6})
+plt.title('Bradley: 2967m',fontweight='bold',size= 6)
+
+ax1 = plt.subplot2grid((3,4), (1, 1))
+plt.pie([avg_sand_t4,avg_silt_t4,avg_clay_t4],labels=labels,colors=colors,autopct='%.2f',textprops={'fontsize': 6})
+plt.title('T403: 2970m',fontweight='bold',size= 6)
+
+ax1 = plt.subplot2grid((3,4), (1, 2))
+plt.pie([avg_sand_wgm,avg_silt_wgm,avg_clay_wgm],labels=labels,colors=colors,autopct='%.2f',textprops={'fontsize': 6})
+plt.title('WG - Mid: 2977m',fontweight='bold',size= 6)
+
+ax1 = plt.subplot2grid((3,4), (1, 3))
+plt.pie([avg_sand_uc,avg_silt_uc,avg_clay_uc],labels=labels,colors=colors,autopct='%.2f',textprops={'fontsize': 6})
+plt.title('Coal - Upper: 3015m',fontweight='bold',size= 6)
+
+ax1 = plt.subplot2grid((3,4), (2, 0))
+plt.pie([avg_sand_sg,avg_silt_sg,avg_clay_sg],labels=labels,colors=colors,autopct='%.2f',textprops={'fontsize': 6})
+plt.title('Snodgrass: 3090m',fontweight='bold',size= 6)
+
+ax1 = plt.subplot2grid((3,4), (2, 1))
+plt.pie([avg_sand_wgu,avg_silt_wgu,avg_clay_wgu],labels=labels,colors=colors,autopct='%.2f',textprops={'fontsize': 6})
+plt.title('WG - Upper: 3204m',fontweight='bold',size= 6)
+
+ax1 = plt.subplot2grid((3,4), (2, 2))
+plt.pie([avg_sand_mtc,avg_silt_mtc,avg_clay_mtc],labels=labels,colors=colors,autopct='%.2f',textprops={'fontsize': 6})
+plt.title('Cinnamon Mt.: 3416m',fontweight='bold',size= 6)
+
+ax1 = plt.subplot2grid((3,4), (2, 3))
+plt.pie([avg_sand_rock,avg_silt_rock,avg_clay_rock],labels=labels,colors=colors,autopct='%.2f',textprops={'fontsize': 6})
+plt.title('Rock: 3467m',fontweight='bold',size= 6)
