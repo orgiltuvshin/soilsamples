@@ -1,0 +1,49 @@
+import pandas as pd
+from pandas import DataFrame
+import numpy as np
+import math
+
+# read files
+path=r'/Users/orgiltuvshintugs/Downloads/NEON2018_SoilTexture_All-3.xlsx' 
+df=pd.read_excel(path)
+
+paths=r'/Users/orgiltuvshintugs/Desktop/combine/no_neg.xlsx'
+ec=pd.read_excel(paths)
+
+
+# drop NaN values from both
+df.dropna(subset=['Long','Lat'],axis=0,inplace=True)
+ec.dropna(subset=['Easting','Northing'],axis=0,inplace=True)
+
+
+# define lat and lon from each
+longitudes_a=ec.Easting.as_matrix()
+latitudes_a=ec.Northing.as_matrix()
+
+longitudes_b=df.Long.as_matrix()
+latitudes_b=df.Lat.as_matrix()
+
+
+dist=[]
+
+# for loop for measuring distances between EC and NEON points
+for i in range(len(longitudes_a)):
+    for j in range(len(longitudes_b)):
+        longitude_a = longitudes_a[i]
+        latitude_a = latitudes_a[i]
+        longitude_b = longitudes_b[j]
+        latitude_b = latitudes_b[j]
+        eq=math.sqrt((longitude_b - longitude_a)**2 + (latitude_b - latitude_a)**2)
+        dist.append((latitude_a, longitude_a, latitude_b, longitude_b, eq))  # create a tuple containing lat and long for both EC and NEON
+        
+# keeping those that are within 3 meters        
+points = [tpl for tpl in dist if tpl[4]<=3]
+
+
+
+# creating a dataframe out of the tuple (points) with column names
+closest = pd.DataFrame(points, columns =['Lat_ec', 'Long_ec', 'Lat1', 'Long1', 'distance']) 
+print(closest) 
+
+# saving dataframe to csv file
+closest.to_csv(r'/Users/orgiltuvshintugs/Desktop/combine/closest.csv')
